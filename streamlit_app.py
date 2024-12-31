@@ -40,15 +40,18 @@ def main():
     # Display the chatbot's title
     st.title("Støker - First AI advisor that might get cancelled")
     st.markdown("Chat with **Støker**, Beware this AI advisor is not for snowflakes! He will roast you! Type a safeword to end the conversation. The safewords are 'exit', 'quit', or 'stop'.")
-    
+
     # Capture user input
     user_input = st.text_input("You: ", "")
 
     if user_input:
-        # Check for exit commands
+        # Check for exit commands and add exit message to the history
         if user_input.lower() in ["exit", "quit", "stop"]:
+            # Add the response for quitting directly to the session state
             st.session_state.messages.append({"role": "assistant", "content": "Finally, some peace and quiet! Don't let the door hit you on the way out!"})
-            st.stop()
+            # Display only the exit response
+            st.markdown(f"**Støker**: {st.session_state.messages[-1]['content']}")
+            return  # Prevent further processing, exit immediately
 
         # Add the user's input to the conversation history
         st.session_state.messages.append({"role": "user", "content": user_input})
@@ -81,15 +84,14 @@ def main():
         except Exception as e:
             st.error(f"Oops! Something went wrong: {e}")
 
-    # Display the assistant's response only, without the "Støker:" prefix
-    if st.session_state.messages:
-        for message in st.session_state.messages:
-            if message["role"] == "user":
-                st.markdown(f"**You**: {message['content']}")
-            elif message["role"] == "assistant":
-                # Only display the assistant's response, without the "Støker:" prefix
-                st.markdown(f"**Støker**: {message['content']}")
+    # Display the latest assistant response only (not the entire history)
+    if len(st.session_state.messages) > 0:
+        # Only display the most recent assistant response
+        latest_message = st.session_state.messages[-1]
+        if latest_message["role"] == "assistant":
+            st.markdown(f"**Støker**: {latest_message['content']}")
 
 # Run the Streamlit app
 if __name__ == "__main__":
     main()
+git status
