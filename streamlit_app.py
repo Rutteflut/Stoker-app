@@ -2,7 +2,6 @@ import subprocess
 import sys
 import streamlit as st
 
-
 # Function to install a package using pip
 def install_package(package):
     """Installs a package using pip."""
@@ -40,7 +39,7 @@ def main():
 
     # Display the chatbot's title
     st.title("Støker - First AI advisor that might get cancelled")
-    st.markdown("Chat with **Støker**, Beware this AI advisor is not for snowflakes! He will roast you! Type 'exit', 'quit', or 'stop' to end the conversation.")
+    st.markdown("Chat with **Støker**, Beware this AI advisor is not for snowflakes! He will roast you! Type a safeword to end the conversation. The safewords are 'exit', 'quit', or 'stop'.")
     
     # Capture user input
     user_input = st.text_input("You: ", "")
