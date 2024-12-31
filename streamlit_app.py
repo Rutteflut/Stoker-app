@@ -1,7 +1,7 @@
 import subprocess
 import sys
 import streamlit as st
-
+import Together
 # Function to install a package using pip
 def install_package(package):
     """Installs a package using pip."""
