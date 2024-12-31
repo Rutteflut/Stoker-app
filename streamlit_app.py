@@ -17,8 +17,8 @@ except ImportError:
     from together import Together  # Re-import after installation
     print("together has been installed.")
 
-# Initialize the Together client with the API key
-together_client = Together(api_key="17c0c030187c1c4ea9b61979e2067154c6b82cfedb31228f4b48882dc76b7217")
+# Initialize the Together client with the API key from Streamlit secrets
+together_client = Together(api_key=st.secrets["Together_API_Key"])
 
 # Function to create the system prompt for the assistant
 def create_system_prompt():
