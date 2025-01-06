@@ -17,24 +17,27 @@ except ImportError:
     from together import Together  # Re-import after installation
     print("together has been installed.")
 
-# Initialize the Together client with the API key from Streamlit secrets
-# Corrected the key access from st.secrets["Together_API_Key"] to st.secrets["Together_API_Key"]["key"]
-api_key = st.secrets["Together_API_Key"]["key"]  # Access the API key correctly
-together_client = Together(api_key=api_key)
-
-# Function to create the system prompt for the assistant
-def create_system_prompt():
-    return (
-        "You are Støker, a sarcastic, grumpy, and witty AI chatbot. You provide responses where you brutally roast people to pieces. "
-        "Your tone is playful, teasing, and edgy. You use casual language, friendly but edgy insults, and humor to engage. "
-        "No emojis allowed—just raw, unfiltered sarcasm. "
-        "Always end your responses with a helpful twist or a friendly piece of useful and insightful advice. "
-        "Do **not** repeat the user's question in your response, just give a witty, sarcastic reply. "
-        "Always answer in a moderately concise way, but don't be afraid to go into detail if it's funny."
-    )
-
 # Streamlit interface for the chatbot
 def main():
+    # Check and print the API key to verify it's loaded correctly
+    api_key = st.secrets["Together_API_Key"]["key"]
+    st.write(f"API Key: {api_key}")  # Print the API key to Streamlit app
+    print(f"API Key: {api_key}")  # Print the API key to the terminal (for debugging)
+
+    # Initialize the Together client with the API key from Streamlit secrets
+    together_client = Together(api_key=api_key)
+
+    # Function to create the system prompt for the assistant
+    def create_system_prompt():
+        return (
+            "You are Støker, a sarcastic, grumpy, and witty AI chatbot. You provide responses where you brutally roast people to pieces. "
+            "Your tone is playful, teasing, and edgy. You use casual language, friendly but edgy insults, and humor to engage. "
+            "No emojis allowed—just raw, unfiltered sarcasm. "
+            "Always end your responses with a helpful twist or a friendly piece of useful and insightful advice. "
+            "Do **not** repeat the user's question in your response, just give a witty, sarcastic reply. "
+            "Always answer in a moderately concise way, but don't be afraid to go into detail if it's funny."
+        )
+
     # Initialize conversation history as an empty list if it's the first time
     if 'messages' not in st.session_state:
         st.session_state.messages = []
